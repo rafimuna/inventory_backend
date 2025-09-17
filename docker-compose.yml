@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:17
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=inventory
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=ra123456
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - SECRET_KEY=your-secret-key
+      - DATABASE_URL=postgres://postgres:ra123456@db:5432/inventory
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
