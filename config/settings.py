@@ -9,7 +9,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env.bool("DEBUG", default=False)
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
+ALLOWED_HOSTS = ["inventory-backend-latest-ykaw.onrender.com"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
